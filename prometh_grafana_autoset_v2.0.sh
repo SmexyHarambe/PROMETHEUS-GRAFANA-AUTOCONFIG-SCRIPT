@@ -23,48 +23,49 @@ check_root() {
 # ==============================
 
 install_prometheus() {
-#    echo "Downloading Prometheus . . ."
-#    wget https://github.com/prometheus/prometheus/releases/download/v3.5.1/prometheus-3.5.1.linux-amd64.tar.gz
-#    echo "Downloading Node exporter"
-#    wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
+    echo "Downloading Prometheus . . ."
+    wget https://github.com/prometheus/prometheus/releases/download/v3.5.1/prometheus-3.5.1.linux-amd64.tar.gz
+    echo "Downloading Node exporter"
+    wget https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
 
-#    echo "Extracting prometheus & node exporter . . ."
-#    tar xvf prometheus-3.5.1.linux-amd64.tar.gz
-#    tar xvf node_exporter-1.10.2.linux-amd64.tar.gz
-#
-#    echo "Creating user group"
-#    groupadd --system prometheus
-#    
-#    echo "Creating user"
-#    useradd --system -s /sbin/nologin -g prometheus prometheus
-#    
+    echo "Extracting prometheus & node exporter . . ."
+    tar xvf prometheus-3.5.1.linux-amd64.tar.gz
+    tar xvf node_exporter-1.10.2.linux-amd64.tar.gz
+
+    echo "Creating user group"
+    groupadd --system prometheus
+    
+    echo "Creating user"
+    useradd --system -s /sbin/nologin -g prometheus prometheus
+    
     echo "moving binary file to /usr/local/bin"
-#    mv prometheus-3.5.1.linux-amd64/prometheus /usr/local/bin/
+    mv prometheus-3.5.1.linux-amd64/prometheus /usr/local/bin/
     mv prometheus-3.5.1.linux-amd64/promtool /usr/local/bin/
-#    mv node_exporter-1.10.2.linux-amd64/node_exporter /usr/local/bin
-#    
-#    echo "Creating configuration"
-#    mkdir /etc/prometheus
-#
-#   echo "Creating directory for database"
-#    mkdir /var/lib/prometheus
+    mv node_exporter-1.10.2.linux-amd64/node_exporter /usr/local/bin
+    
+    echo "Creating configuration"
+    mkdir /etc/prometheus
 
-#    echo "Changing databes directory ownership"
-#    chown -R prometheus:prometheus /var/lib/prometheus
-#    mv prometheus-3.5.1.linux-amd64/prometheus.yml /etc/prometheus/
-#
-#    echo "!!! WARNING !!!"
-#    echo "This configuration are stock configuration, i suggest you to reconfig to your liking "
-#    echo " "
+   echo "Creating directory for database"
+    mkdir /var/lib/prometheus
 
-#    echo "Setting up service . . ."
-#    curl -L https://raw.githubusercontent.com/SmexyHarambe/PROMETHEUS-GRAFANA-AUTOCONFIG-SCRIPT/main/prometheus.service -o /etc/systemd/system/prometheus.service
-#    systemctl enable --now prometheus.service
+    echo "Changing databes directory ownership"
+    chown -R prometheus:prometheus /var/lib/prometheus
+    mv prometheus-3.5.1.linux-amd64/prometheus.yml /etc/prometheus/
 
-#    curl -L https://raw.githubusercontent.com/SmexyHarambe/PROMETHEUS-GRAFANA-AUTOCONFIG-SCRIPT/main/node_exporter.service -o /etc/systemd/system/node_exporter.service
-#    systemctl enable --now node_exporter.service
+    echo "!!! WARNING !!!"
+    echo "This configuration are stock configuration, i suggest you to reconfig to your liking "
+    echo " "
 
-#    systemctl restart prometheus
+    echo "Setting up service . . ."
+    curl -L https://raw.githubusercontent.com/SmexyHarambe/PROMETHEUS-GRAFANA-AUTOCONFIG-SCRIPT/main/prometheus.service -o /etc/systemd/system/prometheus.service
+    systemctl enable --now prometheus.service
+
+    curl -L https://raw.githubusercontent.com/SmexyHarambe/PROMETHEUS-GRAFANA-AUTOCONFIG-SCRIPT/main/node_exporter.service -o /etc/systemd/system/node_exporter.service
+    systemctl enable --now node_exporter.service
+
+	systemctl daemon-reload
+    systemctl restart prometheus
 
     echo "Prometheus installation complete."
 }
@@ -85,6 +86,7 @@ install_grafana() {
 
     echo "Installing grafana . . ."
     apt-get install grafana
+	systemctl daemon-reload
     systemctl enable --now grafana-server.service
     echo "Grafana installation complete."
 }
