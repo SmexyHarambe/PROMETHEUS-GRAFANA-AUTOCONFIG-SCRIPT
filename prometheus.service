@@ -9,11 +9,12 @@ User=prometheus
 Group=prometheus
 Type=simple
 ExecStart=/usr/local/bin/prometheus \
---config.file /etc/prometheus/prometheus.yml \ 
+--config.file /etc/prometheus/prometheus.yml \
 --storage.tsdb.path /var/lib/prometheus/
 #--web.console.templates=/etc/prometheus/consoles \ 
 #--web.console.libraries=/etc/prometheus/consoles_libraries
 
 [Install]
 WantedBy=multi-user.target
+
 
