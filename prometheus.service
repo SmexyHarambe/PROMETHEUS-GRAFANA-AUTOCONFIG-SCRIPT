@@ -9,12 +9,15 @@ User=prometheus
 Group=prometheus
 Type=simple
 ExecStart=/usr/local/bin/prometheus \
---config.file /etc/prometheus/prometheus.yml \
---storage.tsdb.path /var/lib/prometheus/
+  --config.file /etc/prometheus/prometheus.yml \
+  --storage.tsdb.path /var/lib/prometheus/
+#  --web.listen-adress=:9090
+Restart=always
 #--web.console.templates=/etc/prometheus/consoles \ 
 #--web.console.libraries=/etc/prometheus/consoles_libraries
 
 [Install]
 WantedBy=multi-user.target
+
 
 
